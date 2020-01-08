@@ -25,6 +25,7 @@ public class CountryDao {
 				Country country = new Country();
 				country.setCountryId(rs.getInt("country_id"));
 				country.setCountry(rs.getString("country"));
+				country.setLastUpdate(rs.getString("last_update"));
 				list.add(country);
 			}
 		} catch(Exception e) {
