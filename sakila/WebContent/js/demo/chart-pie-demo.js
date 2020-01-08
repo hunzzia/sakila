@@ -7,11 +7,11 @@ var ctx = document.getElementById("myPieChart");
 var myPieChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ["Direct", "Referral", "Social"],
+    labels: ["Sports", "Sci-Fi ", "Animation " ,"Drama" , "Comedy"],
     datasets: [{
-      data: [55, 30, 15],
-      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+      data: [25,20,20,18,17],
+      backgroundColor: ['#4e73df', '#1cc88a', '#ffd633', "#ff5050" , "#4dd2ff"],
+      hoverBackgroundColor: ['#2e59d9', '#17a673', '#ffcc00' , "#ff3333" ,"#1ac6ff"],
       hoverBorderColor: "rgba(234, 236, 244, 1)",
     }],
   },
