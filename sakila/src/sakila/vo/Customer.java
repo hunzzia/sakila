@@ -4,7 +4,7 @@ package sakila.vo;
 public class Customer {
 	private Store store;
 	private Address address;
-	private int cuntomerId;
+	private int customerId;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -24,11 +24,11 @@ public class Customer {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	public int getCuntomerId() {
-		return cuntomerId;
+	public int getCustomerId() {
+		return customerId;
 	}
-	public void setCuntomerId(int cuntomerId) {
-		this.cuntomerId = cuntomerId;
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
 	}
 	public String getFirstName() {
 		return firstName;
@@ -69,7 +69,7 @@ public class Customer {
 	
 	@Override
 	public String toString() {
-		return "Customer [address=" + address + ", cuntomerId=" + cuntomerId + ", firstName=" + firstName
+		return "Customer [address=" + address + ", customerId=" + customerId + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", email=" + email + ", active=" + active + ", createDate=" + createDate
 				+ ", lastUpdate=" + lastUpdate + "]";
 	}

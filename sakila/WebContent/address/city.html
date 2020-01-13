@@ -44,12 +44,12 @@
 			
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Sakila-</h1>
+            <h1 class="h3 mb-0 text-gray-800">Sakila-City</h1>
           </div>
 
           <!-- Content Row -->
           <div class="container-fluid">
-									<!-- DataTales Example -->
+						<!-- DataTales Example -->
 						<div class="card shadow">
 							<div class="card-header py-3">
 								<h6 class="m-0 font-weight-bold text-primary">CityTable</h6>
@@ -78,6 +78,10 @@
 												<a href="#" id="addCity" class="btn btn-primary btn-user btn-block"> 추가 </a>
 											</div>
 											<hr>
+										</div>
+										<br>
+										<div class="card-header py-3">
+											<h6 class="m-0 font-weight-bold text-primary">CityList</h6>
 										</div>
 										<table class="table table-bordered" width="100%" cellspacing="0">
 											<thead>
@@ -172,7 +176,7 @@
 	});
 	$("#addCity").click(function() {
 		if($("#countryId").val() === "" || $("#city").val() === "") {
-			alert("입력입력입력");
+			alert("주소를 올바르게 입력해주세요");
 			
 		} else {
 			$.ajax({

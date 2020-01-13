@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>상점관리시스템 CRM</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="/sakila/temp/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="/sakila/temp/css/sb-admin-2.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar" style="height: 100%;"></div>
+    <!-- End of Sidebar -->
+	
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+	
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <div id="topbar"></div>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Sakila-Address</h1>
+          </div>
+
+          <!-- Content Row -->
+          <div class="container-fluid">
+				<!-- DataTales Example -->
+						<div class="card shadow">
+							<div class="card-header py-3">
+								<h6 class="m-0 font-weight-bold text-primary">AddressTable</h6>
+							</div>
+							<div class="card-body">
+								<div class="table-responsive">
+									<div class="container-fluid">
+										<table class="table table-bordered">
+											<tr>
+												<td>
+													<!-- 1. country list select -->
+													<div class="">
+														<select size="10" id="countryList">
+
+														</select>
+													</div>
+												</td>
+
+												<td>
+													<!-- 2. city list select -->
+													<div class="container-fluid">
+														<select size="10" id="cityList">
+
+														</select>
+													</div>
+												</td>
+
+												<td>
+													<!-- 3. address insert -->
+													<div>
+														<h3>address insert!</h3>
+														<div>
+															cityId : <input type="text" id="cityId"
+																readonly="readonly">
+														</div>
+														<!-- 자동입력 -->
+														<div>
+															address : <input type="text" id="address">
+														</div>
+														<div>
+															address2 : <input type="text" id="address2">
+														</div>
+														<div>
+															district : <input type="text" id="district">
+														</div>
+														<div>
+															postalCode : <input type="text" id="postalCode">
+														</div>
+														<div>
+															phone : <input type="text" id="phone">
+														</div>
+													</div>
+												</td>
+											</tr>
+										</table>
+										
+										<a href="#" id="addAddress" class="btn btn-primary btn-user btn-block" style="width: 100%;"> 추가 </a> <br> <br>
+										
+										<div class="card-header py-3">
+											<h6 class="m-0 font-weight-bold text-primary">AddressList</h6>
+										</div>
+										<table class="table table-bordered" width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<th>countryId</th>
+													<th>country</th>
+													<th>cityId</th>
+													<th>city</th>
+													<th>addressId</th>
+													<th>address</th>
+													<th>address2</th>
+													<th>district</th>
+													<th>postalCode</th>
+													<th>phone</th>
+													<th>lastUpdate</th>
+												</tr>
+											</thead>
+											<tbody id="list">
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div>
+									<a href="#" class="btn btn-info" style="float: right;">
+									<span class="icon text-white-50" id="nextBtn"> <i class="fas fa-arrow-right"></i>
+									</span>
+									</a>
+									<a href="#" class="btn btn-info" style="float: right;"> <span class="icon text-white-50" id="preBtn"> 
+									<i class="fas fa-arrow-left" id="preBtn"></i>
+									</span>
+									</a>
+								</div>
+							</div>
+							<!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; SangHun</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="/sakila/temp/vendor/jquery/jquery.min.js"></script>
+  <script src="/sakila/temp/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="/sakila/temp/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="/sakila/temp/js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="/sakila/temp/vendor/chart.js/Chart.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="/sakila/temp/js/demo/chart-area-demo.js"></script>
+  <script src="/sakila/temp/js/demo/chart-pie-demo.js"></script>
+
+</body>
+<script>
+
+	$("#sidebar").load("/sakila/sidebar.html");
+	$("#topbar").load("/sakila/topbar.html");
+	// 첫페이지
+	let currentPage = 1;
+	// 기본리스트 출력
+	
+	 $.ajax({
+		url : "/sakila/selectAddressList",
+		method : "post",
+		data : {"currentPage" : currentPage},
+		success : function(json) { // 성공했을시
+			console.log(json);
+			$(json).each(function(index, item) {
+				let html = "<tr>";
+				html += "<td>"+item.city.country.countryId+"</td>";
+				html += "<td>"+item.city.country.country+"</td>";
+				html += "<td>"+item.city.cityId+"</td>";
+				html += "<td>"+item.city.city+"</td>";
+				html += "<td>"+item.addressId+"</td>";
+				html += "<td>"+item.address+"</td>";
+				html += "<td>"+item.address2+"</td>";
+				html += "<td>"+item.district+"</td>";
+				html += "<td>"+item.postalCode+"</td>";
+				html += "<td>"+item.phone+"</td>";
+				html += "<td>"+item.lastUpdate+"</td>";
+				html += "</tr>";
+				// tbody안에 저장
+				$("#list").append(html);
+			});
+		}
+	});
+	
+	$.ajax({
+		url : "/sakila/selectCountryListAll",
+		method : "post",
+		success : function(json) {
+			// console.log(json);
+			$("#countryList").empty();
+			$(json).each(function(index, item){ 
+				temp = "<option value = '";
+				temp += item.countryId;
+				temp += "'>";
+				temp += item.country;
+				temp += "</option>";
+				$("#countryList").append(temp);
+			});
+		}
+	});
+	
+	$("#cityList").change(function() {
+		$("#cityId").val($("#cityList").val());
+	});
+	
+	// country를 선택하고 city선택..
+	$("#countryList").change(function() {
+		$.ajax({
+			url : "/sakila/selectCityListByCountry",
+			method : "post",
+			data : {"countryId" : $("#countryList").val()},
+			success : function(json) {
+				// console.log(json);
+				console.log("success country choice!");
+				$("#cityList").empty();
+				$(json).each(function(index, item){
+					temp = "<option value = '";
+					temp += item.cityId;
+					temp += "'>";
+					temp += item.city;
+					temp += "</option>";
+					$("#cityList").append(temp);
+				});
+			}
+		});
+	});
+	// address 추가
+	$("#addAddress").click(function() {
+		// 공백 검토
+		if(
+			$("#address").val() === "" || $("#cityId").val() === ""
+			|| $("#address2").val() === "" || $("#district").val() === "" 
+			|| $("#postalCode").val() === "" || $("#phone").val() === "" )
+		{
+			// 공백일때
+			alert("주소를 올바르게 입력해주세요");
+			
+		} else {
+			// 아닐때
+			 $.ajax({
+					url : "/sakila/insertAddress",
+					method : "post",
+					data : { cityId : $("#cityId").val() , address : $("#address").val() ,  
+							 address2 : $("#address2").val() , district : $("#district").val() ,
+							 postalCode : $("#postalCode").val() , phone : $("#phone").val() },
+					success : function(json) { // 성공했을시
+						console.log(json , "행 입력 성공!");
+						// 리스트 재출력
+						currentPage = 1;
+						$("#list").empty(); // 요청 중복을 막기 위해 청소
+						
+						$.ajax({
+							url : "/sakila/selectAddressList",
+							method : "post",
+							data : {"currentPage" : currentPage},
+							success : function(json) { // 성공했을시
+								console.log(json);
+								$(json).each(function(index, item) {
+									let html = "<tr>";
+									html += "<td>"+item.city.country.countryId+"</td>";
+									html += "<td>"+item.city.country.country+"</td>";
+									html += "<td>"+item.city.cityId+"</td>";
+									html += "<td>"+item.city.city+"</td>";
+									html += "<td>"+item.addressId+"</td>";
+									html += "<td>"+item.address+"</td>";
+									html += "<td>"+item.address2+"</td>";
+									html += "<td>"+item.district+"</td>";
+									html += "<td>"+item.postalCode+"</td>";
+									html += "<td>"+item.phone+"</td>";
+									html += "<td>"+item.lastUpdate+"</td>";
+									html += "</tr>";
+									// tbody안에 저장
+									$("#list").append(html);
+								});
+							}
+						});
+					}
+			});
+		}
+	});
+	
+	// 이전버튼
+	$("#preBtn").click(function() {
+		if(currentPage === 1) {
+			alert("현재 1페이지입니다.");
+			return;
+		}
+	
+	currentPage--;
+	console.log(currentPage);
+	
+	$("#list").empty(); // 요청 중복을 막기 위해 청소
+	
+	$.ajax({
+		url : "/sakila/selectAddressList",
+		method : "post",
+		data : {"currentPage" : currentPage},
+		success : function(json) { // 성공했을시
+			console.log(json);
+			$(json).each(function(index, item) {
+				let html = "<tr>";
+				html += "<td>"+item.city.country.countryId+"</td>";
+				html += "<td>"+item.city.country.country+"</td>";
+				html += "<td>"+item.city.cityId+"</td>";
+				html += "<td>"+item.city.city+"</td>";
+				html += "<td>"+item.addressId+"</td>";
+				html += "<td>"+item.address+"</td>";
+				html += "<td>"+item.address2+"</td>";
+				html += "<td>"+item.district+"</td>";
+				html += "<td>"+item.postalCode+"</td>";
+				html += "<td>"+item.phone+"</td>";
+				html += "<td>"+item.lastUpdate+"</td>";
+				html += "</tr>";
+				// tbody안에 저장
+				$("#list").append(html);
+			});
+		}
+	});
+	});
+	// 다음버튼
+	$("#nextBtn").click(function() {
+		let count = 0;
+		$.ajax({
+			url : "/sakila/selectAddressCount",
+			method : "post",
+			// 비동기화
+			async : false,
+			success : function(json) { // 성공했을시
+				console.log(json);
+				count = Number(json);
+			}
+		});
+	
+		// 마지막 페이지
+		let lastPage = Math.ceil(count/10);
+		if(currentPage == lastPage) {
+			alert("마지막 페이지입니다!");
+			return;
+		}
+		
+		currentPage++;
+		console.log(currentPage);
+		
+		$("#list").empty(); // 요청 중복을 막기 위해 청소
+		
+		$.ajax({
+			url : "/sakila/selectAddressList",
+			method : "post",
+			data : {"currentPage" : currentPage},
+			success : function(json) { // 성공했을시
+				console.log(json);
+				$(json).each(function(index, item) {
+					let html = "<tr>";
+					html += "<td>"+item.city.country.countryId+"</td>";
+					html += "<td>"+item.city.country.country+"</td>";
+					html += "<td>"+item.city.cityId+"</td>";
+					html += "<td>"+item.city.city+"</td>";
+					html += "<td>"+item.addressId+"</td>";
+					html += "<td>"+item.address+"</td>";
+					html += "<td>"+item.address2+"</td>";
+					html += "<td>"+item.district+"</td>";
+					html += "<td>"+item.postalCode+"</td>";
+					html += "<td>"+item.phone+"</td>";
+					html += "<td>"+item.lastUpdate+"</td>";
+					html += "</tr>";
+					// tbody안에 저장
+					$("#list").append(html);
+				});
+			}
+		});
+	});
+</script>
+</html>

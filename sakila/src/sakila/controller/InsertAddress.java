@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import sakila.model.AddressDao;
 import sakila.vo.Address;
 import sakila.vo.City;
@@ -16,8 +18,9 @@ import sakila.vo.City;
 public class InsertAddress extends HttpServlet {
 	private AddressDao addressDao;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("::: InsertAddress 실행 :::");
 		response.setContentType("/application/json;charset=utf-8");
+		System.out.println("::: InsertAddress 실행 :::");
+		
 		
 		// 입력값 request
 		int cityId = Integer.parseInt(request.getParameter("cityId"));
@@ -39,13 +42,12 @@ public class InsertAddress extends HttpServlet {
 		add.setPostalCode(postalCode);
 		add.setPhone(phone);
 		
-		addressDao.insertAddress(add);
+		int count = addressDao.insertAddress(add);
 		
-		/*
-		 * Gson gson = new Gson(); String jsonStr = gson.toJson(add);
-		 * 
-		 * response.getWriter().write(jsonStr);
-		 */
+		Gson gson = new Gson(); String jsonStr = gson.toJson(count);
+		 
+		response.getWriter().write(jsonStr);
+		 
 		
 		System.out.println("::: InsertAddress 종료 :::");
 	}
